@@ -1,0 +1,42 @@
+@font-face {
+    font-family: Westgate-Bold;
+    src: url('../fonts/westgate/Fonts/Westgate-Bold.otf'); 
+  }
+  @font-face {
+    font-family: Danhda;
+    src: url('../fonts/danhda/DanhDa-Bold.otf'); 
+  }
+  :root{
+    font-family: 'Mulish', sans-serif;
+  }
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+    /* font-family: Mulish; */
+}
+
+body,html{
+  background-image: none;
+}
+body{
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  background-color: rgb(250, 250, 250);
+}
+@media (max-width: 425px) {
+  body{
+      font-size: 10px;
+  }}
+.link{
+  color: wheat;
+}
+.link:hover{
+  text-decoration: none;
+  color: rgb(13, 14, 68);
+}

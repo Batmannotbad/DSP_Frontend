@@ -1,0 +1,32 @@
+.navbar-brand{
+    font-size: 2.5rem;
+    letter-spacing: 0.25rem;
+    font-family: Danhda;
+    line-height: 0;
+    padding-bottom: 0.85rem;
+    color: rgb(255, 169, 236);
+}
+nav.navbar.navbar-expand-md.px-5{
+    background-color: rgb(87, 87, 87);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+
+}
+.navbar-toggler-icon{
+    color: black;
+}
+.navbar-light .navbar-brand{
+    color: rgb(211, 39, 39);
+}
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(211,39,39,0.55);
+}
+.logout-btn{
+    background-color: transparent ;
+    border: solid 2px rgba(211, 39, 39,0.5);
+    border-radius: 10px;
+    color: rgb(211, 39, 39);
+}
+.logout-btn:hover{
+    border: solid 2px rgba(0, 0, 0, 0.5);
+    color: rgb(0, 0, 0);
+}
