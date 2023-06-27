@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import "./login.css";
 import { useDispatch } from 'react-redux';
 import { login } from '../../features/userSlice';
-import { useEffect } from 'react';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -12,26 +11,11 @@ function Login() {
   const [message, setMessage] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  // useEffect(() => {
-  //   // Kiểm tra xem có thông tin đăng nhập trong localStorage không
-  //   const userInfo = localStorage.getItem('userInfo');
-  //   if (userInfo) {
-  //     const { username, password } = JSON.parse(userInfo);
-  //     // Thực hiện đăng nhập tự động với thông tin từ localStorage
-  //     dispatch(login({
-  //       username,
-  //       password,
-  //       loggedIn: true,
-  //     }));
-  //     navigate('/');
-  //   }
-  // }, [dispatch, navigate]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://192.168.1.46:5274/api/account/mylogin", {
+      const response = await fetch("http://localhost:5000/api/login", {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -49,8 +33,9 @@ function Login() {
           loggedIn: true,
         }))
         setMessage(data.message);
-        console.log("Sucess");
-        // localStorage.setItem('userInfo', JSON.stringify({ username, password }));
+        console.log("Success");
+        // Lưu thông tin đăng nhập vào localStorage
+        localStorage.setItem('userInfo', JSON.stringify({ username, password }));
         navigate("/");
       } else {
         setMessage(data.message);
@@ -60,6 +45,7 @@ function Login() {
       console.error('Error:', error);
     }
   };
+
   return (
     <div className='login-content'>
       <div className='login'>

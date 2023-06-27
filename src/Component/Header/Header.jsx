@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../../features/userSlice';
-import "./Header.css"
+import { logout, login } from '../../features/userSlice';
+import { Link } from 'react-router-dom';
+import "./Header.css";
+
+const selectLoggedIn = state => state.user.loggedIn;
 
 function Header() {
-  const user = useSelector((state) => state.user.user);
+  const loggedIn = useSelector(selectLoggedIn);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(logout());
+    localStorage.removeItem('userInfo');
   };
+
+  useEffect(() => {
+    const userInfo = localStorage.getItem('userInfo');
+    if (userInfo) {
+      const { username, password } = JSON.parse(userInfo);
+      dispatch(login({
+        username,
+        password,
+        loggedIn: true,
+      }));
+    }
+  }, [dispatch]);
 
   return (
     <nav className='navbar navbar-expand-md navbar-light bg-white px-5'>
@@ -20,11 +36,11 @@ function Header() {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto align-item-center gap-3">
-            {user && user.loggedIn ? (
+            {loggedIn ? (
               <>
                 <li className="nav-item">
                   <span className="nav-link user-name">
-                    {user.username}
+                    {localStorage.getItem('userInfo') && JSON.parse(localStorage.getItem('userInfo')).username}
                   </span>
                 </li>
                 <li className="nav-item d-flex">
@@ -34,13 +50,13 @@ function Header() {
             ) : (
               <>
                 <li className="nav-item">
-                  <a className="nav-link nav-btn" href="/login">Đăng nhập</a>
+                  <Link className="nav-link nav-btn" to="/login">Đăng nhập</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link nav-btn" href="/register">Đăng ký</a>
+                  <Link className="nav-link nav-btn" to="/register">Đăng ký</Link>
                 </li>
               </>
-            )} 
+            )}
           </ul>
         </div>
       </div>
