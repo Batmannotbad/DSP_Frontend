@@ -20,7 +20,8 @@ function Login() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           username, 
-          password})
+          password
+        })
       });
 
       const data = await response.json();
@@ -28,14 +29,17 @@ function Login() {
       if (response.ok) {
         console.log(data);
         dispatch(login({
-          username: username,
-          password: password,
+          userId: data.userId,
+          username: data.username,
+          password: data.password,
+          fullname: data.fullname,
+          email: data.email,
           loggedIn: true,
-        }))
+        }));
         setMessage(data.message);
         console.log("Success");
         // Lưu thông tin đăng nhập vào localStorage
-        localStorage.setItem('userInfo', JSON.stringify({ username, password }));
+        localStorage.setItem('userInfo', JSON.stringify(data));
         navigate("/");
       } else {
         setMessage(data.message);
@@ -45,6 +49,7 @@ function Login() {
       console.error('Error:', error);
     }
   };
+
 
   return (
     <div className='login-content'>

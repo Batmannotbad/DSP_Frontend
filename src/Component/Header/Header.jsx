@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 import "./Header.css";
 
 const selectLoggedIn = state => state.user.loggedIn;
+const selectFullname = state => state.user.fullname; // Thêm selector cho fullname
 
 function Header() {
   const loggedIn = useSelector(selectLoggedIn);
+  const fullname = useSelector(selectFullname); // Sử dụng selector fullname
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -18,10 +20,13 @@ function Header() {
   useEffect(() => {
     const userInfo = localStorage.getItem('userInfo');
     if (userInfo) {
-      const { username, password } = JSON.parse(userInfo);
+      const { username, password, fullname,email, userId } = JSON.parse(userInfo);
       dispatch(login({
+        email,
+        userId,
         username,
         password,
+        fullname, 
         loggedIn: true,
       }));
     }
@@ -40,7 +45,7 @@ function Header() {
               <>
                 <li className="nav-item">
                   <span className="nav-link user-name">
-                    {localStorage.getItem('userInfo') && JSON.parse(localStorage.getItem('userInfo')).username}
+                    {fullname}
                   </span>
                 </li>
                 <li className="nav-item d-flex">
