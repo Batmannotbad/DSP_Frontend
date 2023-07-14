@@ -15,40 +15,41 @@ function Login() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/api/login", {
+      const response = await fetch("http://192.168.1.32:5274/api/account/MyLogin", {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          username, 
+        body: JSON.stringify({
+          username,
           password
         })
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
-        console.log(data);
-        dispatch(login({
-          userId: data.userId,
-          username: data.username,
-          password: data.password,
-          fullname: data.fullname,
-          email: data.email,
-          loggedIn: true,
-        }));
-        setMessage(data.message);
-        console.log("Success");
-        // Lưu thông tin đăng nhập vào localStorage
-        localStorage.setItem('userInfo', JSON.stringify(data));
-        navigate("/");
+        if (data.user === undefined) {
+          setMessage("Thông tin đăng nhập không chính xác");
+          console.log("User information incorrect");
+        } else {
+          const user = JSON.parse(data.user);
+  
+          dispatch(
+            login(user)
+          );
+  
+          setMessage(data.message);
+          console.log("Success");
+          navigate("/");
+        }
       } else {
         setMessage(data.message);
-        console.log("fail")
+        console.log("fail");
       }
     } catch (error) {
       console.error('Error:', error);
     }
   };
+  
 
 
   return (

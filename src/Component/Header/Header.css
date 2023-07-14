@@ -30,3 +30,12 @@ nav.navbar.navbar-expand-md.px-5{
     border: solid 2px rgba(0, 0, 0, 0.5);
     color: rgb(0, 0, 0);
 }
+@media (max-width: 425px){
+    .navbar-nav{
+        align-items: end;
+        padding-top: 1rem;
+    }
+    .nav-item a{
+        font-size: 1rem;
+    }
+}
